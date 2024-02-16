@@ -1,0 +1,36 @@
+version: '3.8'
+
+
+#add more in this format
+#/////////////////////////////////////////////////////////////////
+services:
+  scrapyd:
+    container_name: scrapyd-server              #continer name
+    build:
+      context: ./                               #folder in which Dockerfile Set
+      dockerfile: ./Dockerfile
+    ports:
+      - "6800:6800"                             #enter port to expose (in dockerfile mention)
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  scrapydweb:
+    container_name: scrapydweb-server            #continer name
+    build:
+      context: ./                                #folder in which Dockerfile Set
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000                                #enter port to expose (in dockerfile mention)
+    networks:
+      - app-network
+    restart: unless-stopped
+#/////////////////////////////////////////////////////////////////
+
+      
+volumes:
+  data_0: {}
+
+networks:
+  app-network:
+    driver: bridge
